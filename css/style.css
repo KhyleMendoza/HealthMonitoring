@@ -1,0 +1,85 @@
+#conprof {
+    max-width: 1000px;
+    margin: 50px 420px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: box-shadow 0.3s;
+}
+
+#conprof2 {
+    max-width: 1000px;
+    margin: 50px 420px;
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: box-shadow 0.3s;
+}
+
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z" /></svg>');
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-size: 24px;
+    padding-right: 40px;
+}
+
+
+textarea {
+    resize: vertical;
+}
+
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.bmi-info {
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+.bmi-info label {
+    margin-right: 10px;
+}
+
+
+.bmi-result {
+    font-weight: bold;
+    color: #28a745;
+}
