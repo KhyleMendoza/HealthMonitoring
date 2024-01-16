@@ -28,6 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function logout() {
+    firebase.auth().signOut().then(function () {
+        window.location.href = '../index.html';
+    }).catch(function (error) {
+        window.location.href = '../index.html';
+    });
+}
 
 function calculateBMI() {
     const height = document.getElementById("height").value;
@@ -71,9 +78,14 @@ function submitForm(e) {
         } else {
             const currentCount = snapshot.val();
 
+            var now = new Date();
+            var date = moment(now).format('YYYY-MM-DD');
+
             const healthData = {
                 userid: user.uid,
+                date: date,
                 fullname: document.getElementById('fullName').value,
+                age: document.getElementById('age').value,
                 gender: document.getElementById('gender').value,
                 height: document.getElementById('height').value,
                 weight: document.getElementById('weight').value,
@@ -101,7 +113,16 @@ function submitForm(e) {
 
                     databaseRef.child('patient/' + user.uid + '/record/' + recordId).update(recordData)
                         .then(() => {
-                            console.log("Record ID added to patient's records.");
+                            document.getElementById('fullName').value = "";
+                            document.getElementById('age').value = "";
+                            document.getElementById('gender').value = "";
+                            document.getElementById('height').value = "";
+                            document.getElementById('weight').value = "";
+                            document.getElementById('bloodpressure').value = "";
+                            document.getElementById('heartrate').value = "";
+                            document.getElementById('exercise').value = "";
+                            document.getElementById('bmi').value = "";
+                            alert("Added Record Successfully!");
                         })
                         .catch((error) => {
                             console.error("Error updating patient's records:", error);
@@ -147,8 +168,6 @@ function updateRecordDropdown(userId) {
         });
 }
 
-
-
 function displayResult() {
     const selectedRecordId = document.getElementById("recordSelect").value;
     console.log("Selected Record ID:", selectedRecordId);
@@ -159,19 +178,69 @@ function displayResult() {
         .then((snapshot) => {
             const healthData = snapshot.val();
 
+            let bmiCategory = "";
+            if (healthData.bmi < 18.5) {
+                bmiCategory = "Underweight";
+            } else if (healthData.bmi >= 18.5 && healthData.bmi <= 24.9) {
+                bmiCategory = "Normal";
+            } else if (healthData.bmi >= 25 && healthData.bmi <= 29.9) {
+                bmiCategory = "Overweight";
+            } else {
+                bmiCategory = "Obese";
+            }
+
+            let heartRateCategory = "";
+            const heartRate = parseInt(healthData.heartrate);
+            if (heartRate < 60) {
+                heartRateCategory = "Slow";
+            } else if (heartRate >= 60 && heartRate <= 100) {
+                heartRateCategory = "Normal";
+            } else {
+                heartRateCategory = "Fast";
+            }
+
+            let bloodPressureCategory = "";
+            const bloodPressureValues = healthData.bloodpressure.split('/');
+            const systolic = parseInt(bloodPressureValues[0]);
+            const diastolic = parseInt(bloodPressureValues[1]);
+
+            if (isValidBloodPressure(systolic, diastolic)) {
+                if (systolic < 90 && diastolic < 60) {
+                    bloodPressureCategory = "Low Blood Pressure";
+                } else if (systolic < 120 && diastolic < 80) {
+                    bloodPressureCategory = "Normal Blood Pressure";
+                } else if (systolic < 140 && diastolic < 90) {
+                    bloodPressureCategory = "Pre Hypertension";
+                } else {
+                    bloodPressureCategory = "High Blood Pressure";
+                }
+            } else {
+                bloodPressureCategory = "Invalid Blood Pressure Values";
+            }
+
             document.getElementById("formResults").innerHTML = `
+                <p>Result Date: ${healthData.date}</p>
                 <p>Full Name: ${healthData.fullname}</p>
+                <p>Age: ${healthData.age}</p>
                 <p>Gender: ${healthData.gender}</p>
                 <p>Height: ${healthData.height} cm</p>
                 <p>Weight: ${healthData.weight} kg</p>
-                <p>Blood Pressure: ${healthData.bloodpressure}</p>
-                <p>Heart Rate: ${healthData.heartrate}</p>
+                <p>Blood Pressure: ${healthData.bloodpressure} (${bloodPressureCategory})</p>
+                <p>Heart Rate: ${healthData.heartrate} bpm (${heartRateCategory})</p>
                 <p>Exercise: ${healthData.exercise}</p>
-                <p>BMI: ${healthData.bmi}</p>
-                <!-- Add more details as needed -->
+                <p>BMI: ${healthData.bmi} (${bmiCategory})</p>
             `;
         })
         .catch((error) => {
             console.error(error);
         });
 }
+
+function isValidBloodPressure(systolic, diastolic) {
+    return !isNaN(systolic) && !isNaN(diastolic) && systolic > 0 && diastolic > 0;
+}
+
+document.getElementById('bpp').style.display = 'none';
+
+
+window.logout = logout;
