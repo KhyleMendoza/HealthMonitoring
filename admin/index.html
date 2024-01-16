@@ -22,7 +22,7 @@
 
         <link href="../css/tooplate-kool-form-pack.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="style.css">
 <!--
 
 Tooplate 2136 Kool Form Pack
@@ -51,14 +51,6 @@ Bootstrap 5 Form Pack Template
                                 </span>
                             </a>
 
-                            <div>
-                                <a href="#" class="custom-btn custom-border-btn btn" onclick="logout()">Log Out
-                                    <i class="bi-arrow-right ms-2"></i>
-                                </a>
-                            </div>
-
-                            <a class="bi-list offcanvas-icon" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu"></a>
-
                         </div>
 
                     </div>
@@ -66,105 +58,52 @@ Bootstrap 5 Form Pack Template
             </header>
 
 
-            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">                
-                <div class="offcanvas-header">                    
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                
-                <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
-                    <nav>
-                        <ul>
-
-                            <li>
-                                <a class="active" style="cursor: pointer;" onclick="logout()">Log out</a>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-            <section class="hero-section d-flex justify-content-center align-items-center col-lg-12">
-                <div class="container col-lg-12">
+            <section class="hero-section d-flex justify-content-center align-items-center">
+                <div class="container">
                     <div class="row">
-                        <section id="conprof">
-                            <h2>Patient Information</h2>
-                            <form onsubmit="submitForm(event)">
-                                <div>
-                                    <div>
-                                        <label for="fullName">Full Name:</label>
-                                        <input type="text" id="fullName" name="fullName" required>
+
+                        <div class="col-lg-5 col-12 mx-auto">
+                            <form class="custom-form login-form" onsubmit="login(event)">
+                                <h2 class="hero-title text-center mb-4 pb-2">Login to Your Account:</h2>
+
+                                <div class="form-floating mb-4 p-0">
+                                    <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+
+                                    <label for="email">Email address</label>
+                                </div>
+
+                                <div class="form-floating p-0">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <div class="row justify-content-center align-items-center" style="margin-top: 30px;">
+                                    <div class="col-lg-5 col-12">
+                                        <button type="submit" class="form-control">Login</button>
                                     </div>
-                                    <div>
-                                        <label for="age">Age:</label>
-                                        <input type="text" id="age" name="age" required>
-                                    </div>
-                                    <div>
-                                        <label for="gender">Gender:</label>
-                                        <select id="gender" name="gender" required>
-                                            <option value="" selected disabled></option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="height">Height (cm):</label>
-                                        <input type="number" id="height" name="height" min="1" required>
-                                    </div>
-                                    <div>
-                                        <label for="weight">Weight (kg):</label>
-                                        <input type="number" id="weight" name="weight" min="1" required>
-                                    </div>
-                                    <div>
-                                        <label for="bloodpressure">Blood Pressure:</label>
-                                        <input type="text" id="bloodpressure" name="bloodpressure" required>
-                                    </div>
-                                    <div>
-                                        <label for="heartrate">Heart Rate:</label>
-                                        <input type="text" id="heartrate" name="heartrate" required>
-                                    </div>
-                                    <label for="exercise">How often do you exercise per week?</label>
-                                    <div>
-                                        <select id="exercise" name="exercise">
-                                            <option value="" selected disabled></option>
-                                            <option value="always">always</option>
-                                            <option value="Almost Always">Almost Always</option>
-                                            <option value="Usually">Usually</option>
-                                            <option value="Often">Often</option>
-                                            <option value="Never">Never</option>
-                                        </select>
-                                    </div>
-                                    <div id="bpp">
-                                        <label for="bmi" style="margin-right: 10px;">BMI:</label>
-                                        <input type="text" id="bmi" name="bmi" class="bmi-result" readonly>
-                                    </div>
-                                    <div>
-                                        <button type="submit">Submit</button>
+
+                                    <div class="col-lg-5 col-12">
+                                        <a href="register.html" class="btn custom-btn custom-border-btn">Register</a>
                                     </div>
                                 </div>
+
                             </form>
-                        </section>                      
+                            
+                        </div>
                     </div>
                 </div>
 
-                <div class="video-wrap-5">
-                    <video autoplay="" loop="" muted="" class="custom-video" poster="">
-                        <source src="../videos/bgvid1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
             </section>
         </main>
 
+        <!-- JAVASCRIPT FILES -->
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.bundle.min.js"></script>
         <script src="../js/countdown.js"></script>
         <script src="../js/init.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-        <script src="admin.js"></script>
+        <script src="login.js"></script>
     </body>
 </html>
